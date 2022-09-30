@@ -7,35 +7,29 @@ def addApplicant():
     name = input("Applicant's Full Name: ")
     tab["Full Name"].append(name)
     print("Rate the following aspects with a score from 1 to 5:")
-    res = int(input("Personality: "))
+    res = (input("Personality: "))
     tab["Personality"].append(res)
-    res = int(input("Reasoning: "))
+    res = (input("Reasoning: "))
     tab["Reasoning"].append(res)
-    res = int(input("Confidence: "))
+    res = (input("Confidence: "))
     tab["Confidence"].append(res)
-    res = int(input("Social Skills: "))
+    res = (input("Social Skills: "))
     tab["Social Skills"].append(res)
-    res = int(input("Honesty: "))
+    res = (input("Honesty: "))
     tab["Honesty"].append(res)
     cmnt = input("""If you have any additional comments or remarks leave them down here:
     |>> """)
     if(cmnt == ""):
         cmnt = "None"
     tab["Additional Comments"].append(cmnt)
+    res = input("Which department is this candidate interested in?\n|>> ")
+    tab["Chosen Department"].append(res)
 
 def addApplicants():
     global tab
-    tab = {"Full Name":[], "Personality":[], "Reasoning":[], "Confidence":[], "Social Skills":[], "Honesty":[], "Additional Comments":[]}
+    tab = {"Full Name":[], "Personality":[], "Reasoning":[], "Confidence":[], "Social Skills":[], "Honesty":[], "Additional Comments":[], "Chosen Department":[]}
     df1=pd.read_csv("applicants.csv")
-    dic = df1.to_dict()
-    for i in range(0, len(dic['Full Name'])):
-        tab["Full Name"].append(dic["Full Name"][i])
-        tab["Personality"].append(dic["Personality"][i])
-        tab["Reasoning"].append(dic["Reasoning"][i])
-        tab["Confidence"].append(dic["Confidence"][i])
-        tab["Social Skills"].append(dic["Social Skills"][i])
-        tab["Honesty"].append(dic["Honesty"][i])
-        tab["Additional Comments"].append(dic["Additional Comments"][i])
+
 
     done = False
     while not done:
@@ -50,7 +44,8 @@ def addApplicants():
     
     f = open("applicants.csv", "w")
     df = pd.DataFrame(tab)
-    f.write(pd.DataFrame.to_csv(df, index=False))
+    dfin = pd.concat([df1, df], ignore_index=True)
+    f.write(pd.DataFrame.to_csv(dfin, index=False))
     print("Applicant's info has been added successfully !")
     f.close()
 def listApplicant():
