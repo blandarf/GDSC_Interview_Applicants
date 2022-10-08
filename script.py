@@ -67,6 +67,8 @@ def listApplicant():
             print(f"Honesty: {pers}")
             pers = dic["Additional Comments"][i]
             print(f"Additional Comments: {pers}")
+            pers = dic["Chosen Department"][i]
+            print(f"Chosen Department: {pers}")
             break
     print(i)
     if( i >= len(dic["Full Name"]) - 1):
